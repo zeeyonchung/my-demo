@@ -1,0 +1,23 @@
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^\d{1,}\.\d{1,}\.\d{1,}$/
+      when: always
+
+stages:
+  - build
+
+variables:
+  JAR_PATH: ./demo-$CI_COMMIT_TAG.jar
+
+build:
+  stage: build
+  image: openjdk:8-jdk-alpine
+  before_script:
+    - chmod +x mvnw
+  script:
+    - ./mvnw clean package
+    - cp ./target/demo-*.jar $JAR_PATH
+  artifacts:
+    paths:
+      - $JAR_PATH
+    expire_in: 1 day
