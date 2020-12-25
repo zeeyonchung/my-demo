@@ -5,8 +5,10 @@ workflow:
 
 stages:
   - build
+  - deploy
 
 variables:
+  S3_BUCKET_NAME: "my-demo-build"
   JAR_PATH: ./demo-$CI_COMMIT_TAG.jar
 
 build:
@@ -21,3 +23,11 @@ build:
     paths:
       - $JAR_PATH
     expire_in: 1 day
+
+push-to-s3:
+  stage: deploy
+  image: python:latest
+  before_script:
+    - pip install awscli
+  script:
+    - aws s3 cp $JAR_PATH s3://$S3_BUCKET_NAME/ --metadata x-amz-meta-commit-sha=$CI_COMMIT_SHORT_SHA
