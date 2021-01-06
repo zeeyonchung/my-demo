@@ -54,8 +54,8 @@
         <appender-ref ref="ERROR"/>
     </root>
 
-    <logger name="org.springframework.web" level="DEBUG" additivity="false">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </logger>
+<!--    <logger name="org.springframework.web" level="DEBUG" additivity="false">-->
+<!--        <appender-ref ref="STDOUT"/>-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--    </logger>-->
 </configuration>
