@@ -11,12 +11,9 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ReadableRequestWrapper extends HttpServletRequestWrapper {
     private Charset encoding;
-    private Map<String, String[]> parameterMap = new HashMap<>();
     private byte[] rawData;
 
     public ReadableRequestWrapper(HttpServletRequest request) throws IOException {
@@ -25,7 +22,11 @@ public class ReadableRequestWrapper extends HttpServletRequestWrapper {
         String encoding = request.getCharacterEncoding();
         this.encoding = StringUtils.isEmpty(encoding) ? StandardCharsets.UTF_8 : Charset.forName(encoding);
 
-        this.parameterMap.putAll(request.getParameterMap());
+        // org.apache.catalina.connector.Request getParameterMap()이 호출되면
+        // 해당 인스턴스의 필드 ParameterMap<String, String[]> parameterMap에
+        // 들어온 값을 복사해두고 나중에 getParameterXX()가 호출되었을 때 이 복사해둔 값을 반환한다.
+        // inputStream이 사용되고 나서는 들어온 파라미터 값을 읽을 수 없기 때문에 그 전에 호출해주었다.
+        request.getParameterMap();
 
         ServletInputStream inputStream = request.getInputStream();
         this.rawData = IOUtils.toByteArray(inputStream);

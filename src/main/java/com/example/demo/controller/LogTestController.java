@@ -39,8 +39,6 @@ public class LogTestController {
     public ResponseEntity<TestHobby> logTest4(@ModelAttribute TestHobby hobby) {
         log.info("logTest4...");
 
-        hobby.setName("updated name");
-
         return ResponseEntity.ok(hobby);
     }
 
