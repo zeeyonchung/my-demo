@@ -1,0 +1,15 @@
+package com.example.demo.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class PropertyBindingTestController {
+
+    @GetMapping("/propertyTest1")
+    public ResponseEntity<Object> propertyTest1(@RequestParam Number number) {
+        return ResponseEntity.ok(number);
+    }
+}
