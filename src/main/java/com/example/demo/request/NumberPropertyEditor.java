@@ -1,6 +1,6 @@
-package com.example.demo.util;
+package com.example.demo.request;
 
-import com.example.demo.controller.Number;
+import com.example.demo.domain.Number;
 
 import java.beans.PropertyEditorSupport;
 import java.util.NoSuchElementException;

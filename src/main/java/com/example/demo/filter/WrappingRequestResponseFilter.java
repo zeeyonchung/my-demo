@@ -1,6 +1,6 @@
 package com.example.demo.filter;
 
-import com.example.demo.util.ReadableRequestWrapper;
+import com.example.demo.request.ReadableRequestWrapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;

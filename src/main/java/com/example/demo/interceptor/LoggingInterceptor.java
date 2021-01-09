@@ -1,6 +1,6 @@
 package com.example.demo.interceptor;
 
-import com.example.demo.util.ReadableRequestWrapper;
+import com.example.demo.request.ReadableRequestWrapper;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
