@@ -1,8 +1,10 @@
 package com.example.demo.config;
 
 import com.example.demo.interceptor.LoggingInterceptor;
+import com.example.demo.request.NumberConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,5 +19,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(loggingInterceptor)
                 .addPathPatterns("/*")
                 .excludePathPatterns("/users/login", "/error");
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new NumberConverter());
     }
 }
