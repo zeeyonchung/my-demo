@@ -14,6 +14,27 @@ import java.util.List;
 @Slf4j
 public class LogTestController {
 
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("OK!");
+    }
+
+    @GetMapping("/log")
+    public ResponseEntity<String> log() {
+        log.trace("trace...");
+        log.debug("debug...");
+        log.info("info...");
+        log.warn("warn...");
+        log.error("error...");
+
+        return ResponseEntity.ok("OK!");
+    }
+
+    @GetMapping("/log/error")
+    public ResponseEntity<String> logError() {
+        throw new RuntimeException("runtime exception...");
+    }
+
     @GetMapping("/logTest1")
     public ResponseEntity<String> logTest1(@RequestParam String name) {
         log.info("logTest1... {}", name);
