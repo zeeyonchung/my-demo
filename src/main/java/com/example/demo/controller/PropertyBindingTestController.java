@@ -21,7 +21,7 @@ public class PropertyBindingTestController {
     @Value("${application.properties.key}")
     private String internalSharedProperty;
 
-    @Value("${application.properties.env.key}")
+    @Value("${application.properties.env.key:}")
     private String internalEnvProperty;
 
     @GetMapping("/propertyTest1")

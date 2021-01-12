@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /var/www/my-demo/
+    overwrite: yes
+hooks:
+  AfterInstall:
+    - location: scripts/stop.sh
+      timeout: 60
+      runas: ec2-user
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 180
+      runas: ec2-user
+  ValidateService:
+    - location: scripts/health.sh
+      timeout: 30
+      runas: ec2-user
