@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-REPOSITORY=/var/www/my-demo
+REPOSITORY=/home/ec2-user/app/my-demo
 JAR_NAME=$(ls -tr $REPOSITORY/*jar | tail -n 1)
 
 echo ">>> JAR_NAME: $JAR_NAME"
