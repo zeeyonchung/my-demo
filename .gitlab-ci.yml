@@ -10,24 +10,26 @@ stages:
 variables:
   S3_BUCKET_NAME: "my-demo-build"
   JAR_PATH: ./demo-$CI_COMMIT_TAG.jar
+  TAR_NAME: demo-$CI_COMMIT_TAG.tar
+  CODEDEPLOY_APPSPEC_PATH: ./appspec.yml
+  CODEDEPLOY_SCRIPTS_PATH: ./scripts
 
 build:
   stage: build
   image: openjdk:8-jdk-alpine
-  before_script:
-    - chmod +x mvnw
   script:
+    - chmod +x mvnw
     - ./mvnw clean package
     - cp ./target/demo-*.jar $JAR_PATH
+    - tar -cvf $TAR_NAME $JAR_PATH $CODEDEPLOY_APPSPEC_PATH $CODEDEPLOY_SCRIPTS_PATH
   artifacts:
     paths:
-      - $JAR_PATH
+      - ./$TAR_NAME
     expire_in: 1 day
 
 push-to-s3:
   stage: deploy
   image: python:latest
-  before_script:
-    - pip install awscli
   script:
-    - aws s3 cp $JAR_PATH s3://$S3_BUCKET_NAME/ --metadata x-amz-meta-commit-sha=$CI_COMMIT_SHORT_SHA
+    - pip install awscli
+    - aws s3 cp ./$TAR_NAME s3://$S3_BUCKET_NAME/ --metadata x-amz-meta-commit-sha=$CI_COMMIT_SHORT_SHA
